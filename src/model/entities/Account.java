@@ -1,5 +1,7 @@
 package model.entities;
 
+import model.exceptions.DomainException;
+
 public class Account {
 	
 	private Integer number;
@@ -44,17 +46,14 @@ public class Account {
 	public void deposit (Double amount) {
 		balance += amount;
 	}
-	public void withdraw (Double amount) {
-		balance -= amount;
+	public void withdraw (Double amount) {	
 		if (amount > withdrawLimit) {
-			System.out.println("Withdraw error: The amount exceeds whitdraw limit.");
+			throw new DomainException("The amount exceeds whitdraw limit.");
 		} else if (amount > balance) {
-			System.out.println("Withdraw error: Not enough balance.");			
-		} else {
-			System.out.println("New balance: $ " + balance);
-		}
+			throw new DomainException(" Not enough balance.");			
+		} 
+		balance -= amount;
 	}
-	
 	
 
 }
